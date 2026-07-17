@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Pricing — SpiderDB</title>
+<meta name="description" content="Simple, usage-based pricing for SpiderDB. Start free with 5 databases, scale to thousands."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 26 26%22><circle cx=%2213%22 cy=%2213%22 r=%2213%22 fill=%22%230D0F14%22/><circle cx=%2213%22 cy=%2213%22 r=%223%22 fill=%22%23E7B24D%22/></svg>"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/index.html" class="logo">
+      <svg class="mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#E7B24D" stroke-width="1" opacity=".55"><path d="M13 13 L13 2"/><path d="M13 13 L22 7"/><path d="M13 13 L24 16"/><path d="M13 13 L18 24"/><path d="M13 13 L6 23"/><path d="M13 13 L2 15"/><path d="M13 13 L4 5"/></g><g fill="#F3EFE6"><circle cx="13" cy="2" r="1.3"/><circle cx="22" cy="7" r="1.3"/><circle cx="24" cy="16" r="1.3"/><circle cx="18" cy="24" r="1.3"/><circle cx="6" cy="23" r="1.3"/><circle cx="2" cy="15" r="1.3"/><circle cx="4" cy="5" r="1.3"/></g><circle cx="13" cy="13" r="2.6" fill="#E7B24D"/></svg>
+      SpiderDB
+    </a>
+    <div class="nav-links">
+      <a href="/index.html#features">Features</a>
+      <a href="/docs/index.html">Docs</a>
+      <a href="/pricing.html" class="active">Pricing</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost btn-sm">Sign in</a>
+      <a href="#" class="btn btn-silk btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav">
+  <div class="close-row">
+    <span class="logo">SpiderDB</span>
+    <button onclick="toggleMobileNav()" style="background:none;border:none;color:#F3EFE6"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <a href="/index.html#features">Features</a>
+  <a href="/docs/index.html">Docs</a>
+  <a href="/pricing.html">Pricing</a>
+  <a href="/blog.html">Blog</a>
+  <a href="/contact.html">Contact</a>
+  <a href="#" class="btn btn-silk btn-block">Get Started</a>
+</div>
+
+<header style="padding:80px 0 20px">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow" style="justify-content:center">Pricing</div>
+    <h1 style="font-size:clamp(2.2rem,4.5vw,3.4rem)">Pay for what runs, not what's provisioned.</h1>
+    <p class="lead" style="margin:18px auto 0;text-align:center">Every plan includes unlimited isolation between databases. You only pay more as usage grows.</p>
+  </div>
+</header>
+
+<section style="padding-top:56px">
+  <div class="wrap">
+    <div class="pricing-grid reveal in">
+      <div class="plan">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">$0</div>
+        <div class="plan-desc">For side projects and evaluating SpiderDB.</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>5 databases</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>500 reads / day</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>1 GB total storage</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Daily backups, 7-day retention</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Community support</li>
+        </ul>
+        <a href="#" class="btn btn-ghost btn-block">Get Started</a>
+      </div>
+      <div class="plan">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">$9<span>/mo</span></div>
+        <div class="plan-desc">For apps with a small, growing user base.</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>100 databases</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>5M reads / month</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>10 GB total storage</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Daily backups, 30-day retention</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Email support</li>
+        </ul>
+        <a href="#" class="btn btn-ghost btn-block">Start free trial</a>
+      </div>
+      <div class="plan featured">
+        <div class="plan-name">Scale</div>
+        <div class="plan-price">$29<span>/mo</span></div>
+        <div class="plan-desc">For multi-tenant products in production.</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>10,000 databases</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>500M reads / month</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>100 GB total storage</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Point-in-time restore</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Multi-region replication</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Priority support</li>
+        </ul>
+        <a href="#" class="btn btn-silk btn-block">Start free trial</a>
+      </div>
+      <div class="plan">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price" style="font-size:1.7rem">Custom</div>
+        <div class="plan-desc">For platforms running at very large scale.</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Unlimited databases</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Custom throughput</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Dedicated infrastructure</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Uptime SLA</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Dedicated support engineer</li>
+        </ul>
+        <a href="/contact.html" class="btn btn-ghost btn-block">Contact sales</a>
+      </div>
+    </div>
+
+    <table class="compare-table reveal">
+      <thead>
+        <tr><th>Compare plans</th><th>Free</th><th>Starter</th><th>Scale</th><th>Enterprise</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Databases</td><td>5</td><td>100</td><td>10,000</td><td>Unlimited</td></tr>
+        <tr><td>Reads / month</td><td>~15K</td><td>5M</td><td>500M</td><td>Custom</td></tr>
+        <tr><td>Storage</td><td>1 GB</td><td>10 GB</td><td>100 GB</td><td>Custom</td></tr>
+        <tr><td>Backup retention</td><td>7 days</td><td>30 days</td><td>90 days</td><td>Custom</td></tr>
+        <tr><td>Multi-region replication</td><td>—</td><td>—</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Point-in-time restore</td><td>—</td><td>—</td><td>✓</td><td>✓</td></tr>
+        <tr><td>SSO / SAML</td><td>—</td><td>—</td><td>—</td><td>✓</td></tr>
+        <tr><td>Uptime SLA</td><td>—</td><td>—</td><td>—</td><td>✓</td></tr>
+        <tr><td>Support</td><td>Community</td><td>Email</td><td>Priority</td><td>Dedicated engineer</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap" style="max-width:760px">
+    <div class="section-head reveal"><h2>Pricing questions</h2></div>
+    <div class="reveal">
+      <div class="faq-item">
+        <h3>What counts as a "database"?</h3>
+        <p>Each database is a fully isolated instance — typically one per user, tenant, or organization in your app. A database you create and never delete continues to count against your plan's limit even if it's empty.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What happens if I go over my plan's limits?</h3>
+        <p>On Free and Starter, database creation is blocked once you hit your limit until you upgrade or delete unused databases. On Scale and Enterprise, usage above the included amount is billed per unit at the end of the month — nothing is throttled.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I pause databases I'm not using?</h3>
+        <p>Yes. Paused databases stop counting toward your active read/write quota but keep their storage and backups intact, so you can resume them instantly later.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do you offer a discount for startups or nonprofits?</h3>
+        <p><a href="/contact.html" style="color:var(--silk)">Reach out</a> and tell us about what you're building — we review these individually.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="/index.html" class="logo" style="margin-bottom:14px;display:flex">
+          <svg class="mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#E7B24D" stroke-width="1" opacity=".55"><path d="M13 13 L13 2"/><path d="M13 13 L22 7"/><path d="M13 13 L24 16"/><path d="M13 13 L18 24"/><path d="M13 13 L6 23"/><path d="M13 13 L2 15"/><path d="M13 13 L4 5"/></g><circle cx="13" cy="13" r="2.6" fill="#E7B24D"/></svg>
+          SpiderDB
+        </a>
+        <p style="font-size:13.5px;max-width:220px">A database for every user, spun in milliseconds.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/index.html#features">Features</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/docs/index.html">Documentation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/docs/index.html">Getting Started</a></li>
+          <li><a href="/docs/api-reference.html">API Reference</a></li>
+          <li><a href="/docs/cli.html">CLI Reference</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SpiderDB. All rights reserved.</span>
+      <span>Built on isolated, SQLite-compatible databases.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

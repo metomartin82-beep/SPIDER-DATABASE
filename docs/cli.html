@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CLI Reference — SpiderDB Docs</title>
+<meta name="description" content="Command-line reference for the SpiderDB CLI."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 26 26%22><circle cx=%2213%22 cy=%2213%22 r=%2213%22 fill=%22%230D0F14%22/><circle cx=%2213%22 cy=%2213%22 r=%223%22 fill=%22%23E7B24D%22/></svg>"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/index.html" class="logo">
+      <svg class="mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#E7B24D" stroke-width="1" opacity=".55"><path d="M13 13 L13 2"/><path d="M13 13 L22 7"/><path d="M13 13 L24 16"/><path d="M13 13 L18 24"/><path d="M13 13 L6 23"/><path d="M13 13 L2 15"/><path d="M13 13 L4 5"/></g><g fill="#F3EFE6"><circle cx="13" cy="2" r="1.3"/><circle cx="22" cy="7" r="1.3"/><circle cx="24" cy="16" r="1.3"/><circle cx="18" cy="24" r="1.3"/><circle cx="6" cy="23" r="1.3"/><circle cx="2" cy="15" r="1.3"/><circle cx="4" cy="5" r="1.3"/></g><circle cx="13" cy="13" r="2.6" fill="#E7B24D"/></svg>
+      SpiderDB
+    </a>
+    <div class="nav-links">
+      <a href="/index.html#features">Features</a>
+      <a href="/docs/index.html" class="active">Docs</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost btn-sm">Sign in</a>
+      <a href="#" class="btn btn-silk btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav">
+  <div class="close-row">
+    <span class="logo">SpiderDB</span>
+    <button onclick="toggleMobileNav()" style="background:none;border:none;color:#F3EFE6"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <a href="/index.html#features">Features</a>
+  <a href="/docs/index.html">Docs</a>
+  <a href="/pricing.html">Pricing</a>
+  <a href="/blog.html">Blog</a>
+  <a href="/contact.html">Contact</a>
+  <a href="#" class="btn btn-silk btn-block">Get Started</a>
+</div>
+
+<div class="wrap">
+  <div class="docs-layout">
+    <aside class="docs-side">
+      <h4>Get Started</h4>
+      <ul>
+        <li><a href="/docs/index.html">Introduction</a></li>
+        <li><a href="/docs/index.html#quickstart">Quickstart</a></li>
+        <li><a href="/docs/index.html#concepts">Core concepts</a></li>
+        <li><a href="/docs/index.html#authentication">Authentication</a></li>
+      </ul>
+      <h4>Reference</h4>
+      <ul>
+        <li><a href="/docs/api-reference.html">Platform API</a></li>
+        <li><a href="#cli" class="active">CLI</a></li>
+      </ul>
+      <h4>Commands</h4>
+      <ul>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#auth">spiderdb login</a></li>
+        <li><a href="#databases">spiderdb databases</a></li>
+        <li><a href="#shell">spiderdb shell</a></li>
+        <li><a href="#tokens-cli">spiderdb tokens</a></li>
+      </ul>
+    </aside>
+
+    <div class="docs-content">
+      <h2 id="cli">CLI Reference</h2>
+      <p>The SpiderDB CLI wraps the Platform API for use from your terminal or CI pipelines.</p>
+
+      <h2 id="install">Install</h2>
+      <pre><code>npm install -g spiderdb</code></pre>
+      <p>Requires Node.js 18 or later. Verify the install:</p>
+      <pre><code>spiderdb --version</code></pre>
+
+      <h2 id="auth">spiderdb login</h2>
+      <p>Opens your browser to authenticate and stores a credential in <code>~/.spiderdb/credentials</code>.</p>
+      <pre><code>spiderdb login</code></pre>
+      <p>For CI environments without a browser, use an API key instead:</p>
+      <pre><code>spiderdb login --token $SPIDERDB_API_KEY</code></pre>
+
+      <h2 id="databases">spiderdb databases</h2>
+      <table class="docs-table">
+        <thead><tr><th>Command</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>spiderdb databases list</code></td><td>List all databases in your account.</td></tr>
+          <tr><td><code>spiderdb databases create &lt;name&gt;</code></td><td>Create a new database.</td></tr>
+          <tr><td><code>spiderdb databases show &lt;name&gt;</code></td><td>Show details for one database.</td></tr>
+          <tr><td><code>spiderdb databases destroy &lt;name&gt;</code></td><td>Permanently delete a database.</td></tr>
+          <tr><td><code>spiderdb databases pause &lt;name&gt;</code></td><td>Pause a database.</td></tr>
+          <tr><td><code>spiderdb databases resume &lt;name&gt;</code></td><td>Resume a paused database.</td></tr>
+          <tr><td><code>spiderdb databases clone &lt;name&gt; &lt;new-name&gt;</code></td><td>Clone a database.</td></tr>
+          <tr><td><code>spiderdb databases rename &lt;name&gt; &lt;new-name&gt;</code></td><td>Rename a database.</td></tr>
+        </tbody>
+      </table>
+      <pre><code>$ spiderdb databases list
+
+NAME              REGION   STATUS   CREATED
+customer_9f21     iad      active   2 days ago
+customer_a02e     iad      active   2 days ago
+customer_beta     fra      paused   1 week ago</code></pre>
+
+      <h2 id="shell">spiderdb shell</h2>
+      <p>Opens an interactive SQL shell against a database — useful for quick inspection without writing a script.</p>
+      <pre><code>spiderdb shell customer_9f21
+
+spiderdb> SELECT COUNT(*) FROM users;
+spiderdb> .tables
+spiderdb> .schema users
+spiderdb> .quit</code></pre>
+
+      <h2 id="tokens-cli">spiderdb tokens</h2>
+      <table class="docs-table">
+        <thead><tr><th>Command</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>spiderdb tokens create &lt;db&gt; [--readonly] [--expiry 30d]</code></td><td>Create a scoped token for a database.</td></tr>
+          <tr><td><code>spiderdb tokens list &lt;db&gt;</code></td><td>List active tokens for a database.</td></tr>
+          <tr><td><code>spiderdb tokens revoke &lt;db&gt; &lt;token-id&gt;</code></td><td>Revoke a token immediately.</td></tr>
+        </tbody>
+      </table>
+      <div class="docs-note"><strong>Tip:</strong> revoke every token for a database if you suspect one has leaked — this is faster than rotating them individually and takes effect immediately.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>© 2026 SpiderDB. All rights reserved.</span>
+      <a href="/index.html" style="color:var(--silk)">← Back to spiderdb.io</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

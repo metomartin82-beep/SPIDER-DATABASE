@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Why we give every user their own database — SpiderDB Blog</title>
+<meta name="description" content="A shared table with a tenant_id column works fine, until the day it doesn't. Here's the failure mode that convinced us isolation should be the default."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 26 26%22><circle cx=%2213%22 cy=%2213%22 r=%2213%22 fill=%22%230D0F14%22/><circle cx=%2213%22 cy=%2213%22 r=%223%22 fill=%22%23E7B24D%22/></svg>"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/index.html" class="logo">
+      <svg class="mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#E7B24D" stroke-width="1" opacity=".55"><path d="M13 13 L13 2"/><path d="M13 13 L22 7"/><path d="M13 13 L24 16"/><path d="M13 13 L18 24"/><path d="M13 13 L6 23"/><path d="M13 13 L2 15"/><path d="M13 13 L4 5"/></g><g fill="#F3EFE6"><circle cx="13" cy="2" r="1.3"/><circle cx="22" cy="7" r="1.3"/><circle cx="24" cy="16" r="1.3"/><circle cx="18" cy="24" r="1.3"/><circle cx="6" cy="23" r="1.3"/><circle cx="2" cy="15" r="1.3"/><circle cx="4" cy="5" r="1.3"/></g><circle cx="13" cy="13" r="2.6" fill="#E7B24D"/></svg>
+      SpiderDB
+    </a>
+    <div class="nav-links">
+      <a href="/index.html#features">Features</a>
+      <a href="/docs/index.html">Docs</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog.html" class="active">Blog</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost btn-sm">Sign in</a>
+      <a href="#" class="btn btn-silk btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav">
+  <div class="close-row">
+    <span class="logo">SpiderDB</span>
+    <button onclick="toggleMobileNav()" style="background:none;border:none;color:#F3EFE6"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <a href="/index.html#features">Features</a>
+  <a href="/docs/index.html">Docs</a>
+  <a href="/pricing.html">Pricing</a>
+  <a href="/blog.html">Blog</a>
+  <a href="/contact.html">Contact</a>
+  <a href="#" class="btn btn-silk btn-block">Get Started</a>
+</div>
+
+<header class="post-hero">
+  <div class="wrap" style="max-width:680px">
+    <div class="post-tag">Engineering</div>
+    <h1 style="font-size:clamp(2rem,4vw,2.8rem)">Why we give every user their own database</h1>
+    <p style="margin-top:16px;font-size:1.05rem">JUL 14, 2026 · 6 MIN READ · The SpiderDB Team</p>
+  </div>
+</header>
+
+<article class="wrap">
+  <div class="post-body">
+    <p>Almost every multi-tenant app starts the same way: one database, one big <code>users</code> table, and a <code>tenant_id</code> column on everything downstream of it. It's the obvious design, and for a long time, it's the right one.</p>
+    <p>Then the app grows, and a specific kind of bug starts showing up. Not often — maybe once every few months — but it's always the worst kind: a query missing a <code>WHERE tenant_id = ?</code> clause, caught only after it already returned another customer's data. Or a background job that iterates "all rows" instead of "all rows for this tenant" because someone forgot to scope it. Or a migration that locks the whole table for every customer because one customer's data grew ten times larger than everyone else's.</p>
+    <p>None of these are exotic mistakes. They're the default failure mode of shared-table multi-tenancy, and the more engineers touch the codebase, the more often one of them slips through review.</p>
+
+    <h2>The isolation-by-default alternative</h2>
+    <p>The fix we kept coming back to wasn't a better linter rule or a stricter code review checklist — it was removing the category of mistake entirely. If customer data physically cannot be in the same table as another customer's data, there's no missing <code>WHERE</code> clause to forget, because there's no other customer's rows in that database to accidentally select.</p>
+    <p>That's the whole idea behind SpiderDB: instead of one database with a tenant column, every customer gets a real, separate SQLite-compatible database. Your application code looks up which database a request belongs to, connects to it directly, and queries it like it's the only database in the world — because, from that connection, it is.</p>
+
+    <h2>The part people worry about first: does this get expensive or slow?</h2>
+    <p>This is the first objection every team raises, and it's a fair one. A few things make it work in practice:</p>
+    <ul>
+      <li>Databases are cheap to create — provisioning one takes milliseconds, not a change request to your infrastructure team.</li>
+      <li>Idle databases cost nothing beyond storage. A customer who signed up once and never came back isn't burning compute.</li>
+      <li>You're not managing thousands of database <em>servers</em> — you're managing thousands of logical databases behind one platform, with one connection pattern.</li>
+    </ul>
+    <p>The tradeoff that <em>is</em> real: a query that needs to join across two customers' data — for an admin analytics dashboard, say — now has to do that aggregation at the application layer instead of with a single SQL join. For the vast majority of multi-tenant apps, that trade is worth it, because that kind of cross-tenant query is rare, and the isolation bug it prevents is common.</p>
+
+    <h2>What this looks like in code</h2>
+    <p>The pattern ends up simpler than the shared-table version, not more complex:</p>
+    <pre style="background:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:20px 0"><code style="font-family:var(--mono);font-size:13.5px;color:var(--paper)">async function handleRequest(customerId, query) {
+  const dbUrl = await registry.lookup(customerId);
+  const conn = spiderdb.connect(dbUrl);
+  return conn.execute(query); // no tenant_id anywhere
+}</code></pre>
+    <p>No scoping logic to get wrong. No row-level security policy to keep in sync with your schema. The database itself is the security boundary.</p>
+
+    <h2>Where we landed</h2>
+    <p>We don't think shared-table multi-tenancy is wrong — it's the right starting point for a lot of apps, especially early on, when the operational simplicity of one database outweighs the isolation risk. But once an app is handling real customer data at real scale, we think isolation should be the default you reach for, not the advanced technique you migrate to after an incident.</p>
+    <p>That's what we built SpiderDB to make boring: creating a database should be as easy as creating a row.</p>
+  </div>
+</article>
+
+<section style="padding-top:60px">
+  <div class="wrap">
+    <div class="cta-band reveal in">
+      <h2>Try it on your next project.</h2>
+      <p>Your first database is free — no credit card required.</p>
+      <a href="/index.html" class="btn btn-silk">Get Started →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>© 2026 SpiderDB. All rights reserved.</span>
+      <a href="/blog.html" style="color:var(--silk)">← Back to the blog</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

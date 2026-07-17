@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Platform API — SpiderDB Docs</title>
+<meta name="description" content="REST API reference for creating, managing, and connecting to SpiderDB databases."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 26 26%22><circle cx=%2213%22 cy=%2213%22 r=%2213%22 fill=%22%230D0F14%22/><circle cx=%2213%22 cy=%2213%22 r=%223%22 fill=%22%23E7B24D%22/></svg>"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/index.html" class="logo">
+      <svg class="mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#E7B24D" stroke-width="1" opacity=".55"><path d="M13 13 L13 2"/><path d="M13 13 L22 7"/><path d="M13 13 L24 16"/><path d="M13 13 L18 24"/><path d="M13 13 L6 23"/><path d="M13 13 L2 15"/><path d="M13 13 L4 5"/></g><g fill="#F3EFE6"><circle cx="13" cy="2" r="1.3"/><circle cx="22" cy="7" r="1.3"/><circle cx="24" cy="16" r="1.3"/><circle cx="18" cy="24" r="1.3"/><circle cx="6" cy="23" r="1.3"/><circle cx="2" cy="15" r="1.3"/><circle cx="4" cy="5" r="1.3"/></g><circle cx="13" cy="13" r="2.6" fill="#E7B24D"/></svg>
+      SpiderDB
+    </a>
+    <div class="nav-links">
+      <a href="/index.html#features">Features</a>
+      <a href="/docs/index.html" class="active">Docs</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost btn-sm">Sign in</a>
+      <a href="#" class="btn btn-silk btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav">
+  <div class="close-row">
+    <span class="logo">SpiderDB</span>
+    <button onclick="toggleMobileNav()" style="background:none;border:none;color:#F3EFE6"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <a href="/index.html#features">Features</a>
+  <a href="/docs/index.html">Docs</a>
+  <a href="/pricing.html">Pricing</a>
+  <a href="/blog.html">Blog</a>
+  <a href="/contact.html">Contact</a>
+  <a href="#" class="btn btn-silk btn-block">Get Started</a>
+</div>
+
+<div class="wrap">
+  <div class="docs-layout">
+    <aside class="docs-side">
+      <h4>Get Started</h4>
+      <ul>
+        <li><a href="/docs/index.html">Introduction</a></li>
+        <li><a href="/docs/index.html#quickstart">Quickstart</a></li>
+        <li><a href="/docs/index.html#concepts">Core concepts</a></li>
+        <li><a href="/docs/index.html#authentication">Authentication</a></li>
+      </ul>
+      <h4>Reference</h4>
+      <ul>
+        <li><a href="#databases" class="active">Platform API</a></li>
+        <li><a href="/docs/cli.html">CLI</a></li>
+      </ul>
+      <h4>Endpoints</h4>
+      <ul>
+        <li><a href="#list-databases">List databases</a></li>
+        <li><a href="#create-database">Create a database</a></li>
+        <li><a href="#get-database">Get a database</a></li>
+        <li><a href="#delete-database">Delete a database</a></li>
+        <li><a href="#pause-database">Pause / resume</a></li>
+        <li><a href="#clone-database">Clone a database</a></li>
+        <li><a href="#tokens">Tokens</a></li>
+        <li><a href="#errors">Errors</a></li>
+      </ul>
+    </aside>
+
+    <div class="docs-content">
+      <h2 id="databases">Platform API</h2>
+      <p>The Platform API is a REST API for managing databases programmatically. All requests require an <code>Authorization: Bearer</code> header with an account-level API key, generated from the dashboard under <strong>Settings → API Keys</strong>.</p>
+      <pre><code>Base URL: https://api.spiderdb.io/v1</code></pre>
+
+      <h2 id="list-databases">List databases</h2>
+      <pre><code>GET /v1/databases</code></pre>
+      <pre><code>curl https://api.spiderdb.io/v1/databases \
+  -H "Authorization: Bearer $SPIDERDB_API_KEY"</code></pre>
+      <pre><code>{
+  "databases": [
+    {
+      "name": "customer_9f21",
+      "region": "iad",
+      "status": "active",
+      "createdAt": "2026-06-02T10:14:00Z"
+    }
+  ]
+}</code></pre>
+
+      <h2 id="create-database">Create a database</h2>
+      <pre><code>POST /v1/databases</code></pre>
+      <table class="docs-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>name</code></td><td>string</td><td>yes</td><td>Unique name, lowercase letters/numbers/hyphens/underscores only.</td></tr>
+          <tr><td><code>group</code></td><td>string</td><td>no</td><td>Group to create the database in. Defaults to <code>"default"</code>.</td></tr>
+          <tr><td><code>region</code></td><td>string</td><td>no</td><td>Primary region. Defaults to your account's home region.</td></tr>
+        </tbody>
+      </table>
+      <pre><code>curl -X POST https://api.spiderdb.io/v1/databases \
+  -H "Authorization: Bearer $SPIDERDB_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "customer_9f21"}'</code></pre>
+      <pre><code>{
+  "name": "customer_9f21",
+  "connectionUrl": "libsql://customer-9f21.spiderdb.io",
+  "region": "iad",
+  "status": "active",
+  "createdAt": "2026-07-14T09:02:11Z"
+}</code></pre>
+
+      <h2 id="get-database">Get a database</h2>
+      <pre><code>GET /v1/databases/:name</code></pre>
+      <pre><code>curl https://api.spiderdb.io/v1/databases/customer_9f21 \
+  -H "Authorization: Bearer $SPIDERDB_API_KEY"</code></pre>
+
+      <h2 id="delete-database">Delete a database</h2>
+      <pre><code>DELETE /v1/databases/:name</code></pre>
+      <div class="docs-note"><strong>This is permanent.</strong> Deleting a database also deletes its backups after the retention window on your plan. Export any data you need first.</div>
+      <pre><code>curl -X DELETE https://api.spiderdb.io/v1/databases/customer_9f21 \
+  -H "Authorization: Bearer $SPIDERDB_API_KEY"</code></pre>
+
+      <h2 id="pause-database">Pause / resume a database</h2>
+      <pre><code>POST /v1/databases/:name/pause
+POST /v1/databases/:name/resume</code></pre>
+      <p>A paused database keeps its storage and stops counting toward your active read/write quota. Resuming is near-instant.</p>
+
+      <h2 id="clone-database">Clone a database</h2>
+      <pre><code>POST /v1/databases/:name/clone</code></pre>
+      <pre><code>curl -X POST https://api.spiderdb.io/v1/databases/customer_9f21/clone \
+  -H "Authorization: Bearer $SPIDERDB_API_KEY" \
+  -d '{"newName": "customer_9f21_staging"}'</code></pre>
+      <p>Clones are copy-on-write and share underlying storage with the source database until either one is modified, so cloning is fast regardless of database size.</p>
+
+      <h2 id="tokens">Database tokens</h2>
+      <pre><code>POST /v1/databases/:name/tokens</code></pre>
+      <table class="docs-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>permission</code></td><td>string</td><td><code>"read-only"</code> or <code>"read-write"</code>. Defaults to <code>"read-write"</code>.</td></tr>
+          <tr><td><code>expiresIn</code></td><td>string</td><td>Duration like <code>"24h"</code> or <code>"30d"</code>. Omit for a non-expiring token.</td></tr>
+        </tbody>
+      </table>
+      <pre><code>curl -X POST https://api.spiderdb.io/v1/databases/customer_9f21/tokens \
+  -H "Authorization: Bearer $SPIDERDB_API_KEY" \
+  -d '{"permission": "read-only", "expiresIn": "30d"}'</code></pre>
+      <pre><code>{
+  "token": "eyJhbGciOiJFZERTQSJ9...",
+  "permission": "read-only",
+  "expiresAt": "2026-08-13T09:02:11Z"
+}</code></pre>
+
+      <h2 id="errors">Errors</h2>
+      <p>Errors are returned as JSON with an HTTP status code and a machine-readable <code>code</code> field.</p>
+      <table class="docs-table">
+        <thead><tr><th>Status</th><th>Code</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>400</td><td><code>invalid_name</code></td><td>Database name doesn't match the allowed pattern.</td></tr>
+          <tr><td>401</td><td><code>unauthorized</code></td><td>Missing or invalid API key.</td></tr>
+          <tr><td>404</td><td><code>not_found</code></td><td>No database with that name exists on this account.</td></tr>
+          <tr><td>409</td><td><code>already_exists</code></td><td>A database with that name already exists.</td></tr>
+          <tr><td>429</td><td><code>plan_limit_reached</code></td><td>You've hit your plan's database or usage limit.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>© 2026 SpiderDB. All rights reserved.</span>
+      <a href="/index.html" style="color:var(--silk)">← Back to spiderdb.io</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Getting Started — SpiderDB Docs</title>
+<meta name="description" content="Get started with SpiderDB: create your first database, connect to it, and understand how isolation works."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 26 26%22><circle cx=%2213%22 cy=%2213%22 r=%2213%22 fill=%22%230D0F14%22/><circle cx=%2213%22 cy=%2213%22 r=%223%22 fill=%22%23E7B24D%22/></svg>"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/index.html" class="logo">
+      <svg class="mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#E7B24D" stroke-width="1" opacity=".55"><path d="M13 13 L13 2"/><path d="M13 13 L22 7"/><path d="M13 13 L24 16"/><path d="M13 13 L18 24"/><path d="M13 13 L6 23"/><path d="M13 13 L2 15"/><path d="M13 13 L4 5"/></g><g fill="#F3EFE6"><circle cx="13" cy="2" r="1.3"/><circle cx="22" cy="7" r="1.3"/><circle cx="24" cy="16" r="1.3"/><circle cx="18" cy="24" r="1.3"/><circle cx="6" cy="23" r="1.3"/><circle cx="2" cy="15" r="1.3"/><circle cx="4" cy="5" r="1.3"/></g><circle cx="13" cy="13" r="2.6" fill="#E7B24D"/></svg>
+      SpiderDB
+    </a>
+    <div class="nav-links">
+      <a href="/index.html#features">Features</a>
+      <a href="/docs/index.html" class="active">Docs</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost btn-sm">Sign in</a>
+      <a href="#" class="btn btn-silk btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav">
+  <div class="close-row">
+    <span class="logo">SpiderDB</span>
+    <button onclick="toggleMobileNav()" style="background:none;border:none;color:#F3EFE6"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <a href="/index.html#features">Features</a>
+  <a href="/docs/index.html">Docs</a>
+  <a href="/pricing.html">Pricing</a>
+  <a href="/blog.html">Blog</a>
+  <a href="/contact.html">Contact</a>
+  <a href="#" class="btn btn-silk btn-block">Get Started</a>
+</div>
+
+<div class="wrap">
+  <div class="docs-layout">
+    <aside class="docs-side">
+      <h4>Get Started</h4>
+      <ul>
+        <li><a href="#introduction" class="active">Introduction</a></li>
+        <li><a href="#quickstart">Quickstart</a></li>
+        <li><a href="#concepts">Core concepts</a></li>
+        <li><a href="#authentication">Authentication</a></li>
+      </ul>
+      <h4>Reference</h4>
+      <ul>
+        <li><a href="/docs/api-reference.html">Platform API</a></li>
+        <li><a href="/docs/cli.html">CLI</a></li>
+      </ul>
+      <h4>Guides</h4>
+      <ul>
+        <li><a href="#multi-tenant">Multi-tenant SaaS</a></li>
+        <li><a href="#migrations">Running migrations</a></li>
+      </ul>
+    </aside>
+
+    <div class="docs-content">
+      <h2 id="introduction">Introduction</h2>
+      <p>SpiderDB gives every user, tenant, or organization in your application its own isolated database. Instead of one shared database with a <code>tenant_id</code> column separating your customers' data, each customer gets a real, separate database — created on demand, in milliseconds.</p>
+      <p>Every database SpiderDB creates is SQLite-compatible, reachable over the network, and connectable from any SQLite or libSQL client library you already use.</p>
+      <div class="docs-note"><strong>When to use SpiderDB:</strong> if your app already has the shape "one row of data belongs to exactly one customer," isolating that customer's data into its own database removes an entire category of bugs — no query can ever accidentally return another customer's rows, because there's no other customer's rows in the same database to return.</div>
+
+      <h2 id="quickstart">Quickstart</h2>
+      <p>This walks through creating your first database and running a query against it.</p>
+      <h3>1. Install the CLI</h3>
+      <pre><code>npm install -g spiderdb</code></pre>
+      <h3>2. Sign in</h3>
+      <pre><code>spiderdb login</code></pre>
+      <p>This opens your browser to authenticate and stores a credential locally.</p>
+      <h3>3. Create a database</h3>
+      <pre><code>spiderdb databases create hello-world
+
+✓ created hello-world
+  libsql://hello-world.spiderdb.io</code></pre>
+      <h3>4. Connect and run a query</h3>
+      <pre><code>spiderdb shell hello-world
+
+spiderdb> CREATE TABLE notes (id INTEGER PRIMARY KEY, body TEXT);
+spiderdb> INSERT INTO notes (body) VALUES ('first row');
+spiderdb> SELECT * FROM notes;</code></pre>
+      <p>That's a running database. From here, connect to it from your application using the connection URL shown when it was created.</p>
+
+      <h2 id="concepts">Core concepts</h2>
+      <table class="docs-table">
+        <thead><tr><th>Term</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td><code>database</code></td><td>A single isolated SQLite-compatible instance, identified by a unique name within your account.</td></tr>
+          <tr><td><code>group</code></td><td>A set of databases that share the same region and replication configuration.</td></tr>
+          <tr><td><code>token</code></td><td>A scoped credential (read-only or read-write) bound to one database or group, with an optional expiry.</td></tr>
+          <tr><td><code>branch</code></td><td>A copy-on-write clone of an existing database, useful for testing migrations against real data.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="authentication">Authentication</h2>
+      <p>SpiderDB uses two separate layers of credentials, and it's worth keeping them straight:</p>
+      <ul>
+        <li><strong>Account credentials</strong> — your email/password, Google, or GitHub login, used to sign in to the dashboard and CLI. These manage your organization, billing, and team.</li>
+        <li><strong>Database tokens</strong> — short-lived or long-lived tokens scoped to a specific database, used by your <em>application</em> to connect. Generate one per environment (development, staging, production) so you can revoke access independently.</li>
+      </ul>
+      <pre><code>spiderdb databases tokens create hello-world --expiry 30d --readonly</code></pre>
+      <div class="docs-note"><strong>Never use your account credentials in application code.</strong> Always generate a database-scoped token instead, so a leaked key only exposes one database rather than your whole account.</div>
+
+      <h2 id="multi-tenant">Guide: multi-tenant SaaS</h2>
+      <p>The most common pattern: create one database per customer at signup, and store the mapping between your internal customer ID and their database name in your own control-plane database (which can itself be a SpiderDB database).</p>
+      <pre><code>async function onSignup(customerId) {
+  const db = await client.databases.create(`customer_${customerId}`);
+  await registry.set(customerId, db.connectionUrl);
+  return db;
+}</code></pre>
+      <p>When that customer's request comes in, look up their database URL from the registry and connect to it directly — no <code>WHERE tenant_id = ?</code> anywhere in your query layer.</p>
+
+      <h2 id="migrations">Guide: running migrations across many databases</h2>
+      <p>Because each customer has a separate database, a schema change needs to run against every one of them. SpiderDB doesn't push a single schema automatically — instead, iterate over your databases and apply the migration to each:</p>
+      <pre><code>const dbs = await client.databases.list();
+for (const db of dbs) {
+  const conn = client.connect(db.name);
+  await conn.execute("ALTER TABLE notes ADD COLUMN pinned INTEGER DEFAULT 0");
+}</code></pre>
+      <p>For large fleets, batch this with concurrency limits and track progress so a partial failure doesn't leave you unsure which databases were migrated.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span>© 2026 SpiderDB. All rights reserved.</span>
+      <a href="/index.html" style="color:var(--silk)">← Back to spiderdb.io</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SpiderDB — A database for every user, spun in milliseconds</title>
+<meta name="description" content="SpiderDB gives every user, tenant, or AI agent in your app its own isolated SQLite database — created in milliseconds, backed up automatically, and reachable from anywhere."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 26 26%22><circle cx=%2213%22 cy=%2213%22 r=%2213%22 fill=%22%230D0F14%22/><circle cx=%2213%22 cy=%2213%22 r=%223%22 fill=%22%23E7B24D%22/></svg>"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/index.html" class="logo">
+      <svg class="mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#E7B24D" stroke-width="1" opacity=".55">
+          <path d="M13 13 L13 2"/><path d="M13 13 L22 7"/><path d="M13 13 L24 16"/>
+          <path d="M13 13 L18 24"/><path d="M13 13 L6 23"/><path d="M13 13 L2 15"/><path d="M13 13 L4 5"/>
+        </g>
+        <g fill="#FFF82BFF"><circle cx="13" cy="2" r="1.3"/><circle cx="22" cy="7" r="1.3"/><circle cx="24" cy="16" r="1.3"/><circle cx="18" cy="24" r="1.3"/><circle cx="6" cy="23" r="1.3"/><circle cx="2" cy="15" r="1.3"/><circle cx="4" cy="8" r="1.3"/></g>
+        <circle cx="13" cy="13" r="2.6" fill="#E7B24D"/>
+      </svg>
+      SPIDER DATABASE™
+    </a>
+    <div class="nav-links">
+      <a href="/index.html#features">Features</a>
+      <a href="/docs/index.html">Docs</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost btn-sm">Sign in</a>
+      <a href="#" class="btn btn-silk btn-sm">Get Started</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav">
+  <div class="close-row">
+    <span class="logo">SPIDER DATABASE®</span>
+    <button onclick="toggleMobileNav()" style="background:none;border:none;color:#F3EFE6"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <a href="/index.html#features">Features</a>
+  <a href="/docs/index.html">Docs</a>
+  <a href="/pricing.html">Pricing</a>
+  <a href="/blog.html">Blog</a>
+  <a href="/contact.html">Contact</a>
+  <a href="#" class="btn btn-silk btn-block">Get Started</a>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-copy reveal in">
+      <div class="eyebrow">automation future awaits</div>
+      <h1>A database for every user.<br>Spun in milliseconds.</h1>
+      <p class="lead">SpiderDB database made for junior devs who currently cant afford expensive db's and meant to uphold the future of young devs around the world, credits to maps</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-silk">Get Started — free🕷️ →</a>
+        <a href="/docs/index.html" class="btn btn-ghost">Read the docs</a>
+      </div>
+    </div>
+    <div class="web-diagram reveal in" style="transition-delay:.5s">
+      <div id="web-diagram-svg"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stat-strip">
+      <div class="stat"><div class="num">&lt;9ms</div><div class="lbl">median create time</div></div>
+      <div class="stat"><div class="num">1:1</div><div class="lbl">isolation, every database</div></div>
+      <div class="stat"><div class="num">SQLite</div><div class="lbl">wire-compatible</div></div>
+      <div class="stat"><div class="num">3</div><div class="lbl">continents, active-active</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why isolated databases</div>
+      <h2>One real bug shouldn't slow down the other nine thousand lines of perfect code.</h2>
+      <p>A shared database with a tenant_id column works fine until it doesn't. SpiderDB skips the risk entirely — every user gets a real, separate database from the start.</p>
+    </div>
+    <div class="grid-3 reveal">
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        <h3>True isolation</h3>
+        <p>Every database is a separate instance with its own storage. No shared tables, no row-level security to get wrong, no cross-tenant query leaking into logs.</p>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        <h3>Instant provisioning</h3>
+        <p>Create a database in the time it takes to make an API call — no queues, no waiting on infrastructure. Spin one up per signup, per session, or per AI agent run.</p>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <h3>SQLite-compatible</h3>
+        <p>Connect with any SQLite or libSQL client you already know. No new query language, no ORM plugin, no migration off tools your team already trusts.</p>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <h3>Automatic backups</h3>
+        <p>Every database is backed up on a rolling schedule with point-in-time restore, without a single line of backup code in your app.</p>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
+        <h3>Branch and clone</h3>
+        <p>Fork any database to test a migration or debug production data, without touching the original. Delete the branch when you're done.</p>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <h3>Scoped access tokens</h3>
+        <p>Generate a read-only or read-write token bound to one database, with an expiry date, and hand it to a client or a background job without exposing the rest of your fleet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">How it works</div>
+      <h2>Three calls between you and a running database.</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <h3>Create</h3>
+        <p>Call the API or run one CLI command. SpiderDB provisions an isolated database and returns a connection URL.</p>
+      </div>
+      <div class="step">
+        <h3>Connect</h3>
+        <p>Use the connection string with any SQLite/libSQL client — no driver to install that you don't already have.</p>
+      </div>
+      <div class="step">
+        <h3>Ship</h3>
+        <p>Query it like any local SQLite file. Backups, replication, and isolation are handled for you in the background.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Try it now</div>
+      <h2>Create a database from your terminal.</h2>
+    </div>
+    <div class="code-panel reveal">
+      <div class="code-tabs">
+        <button class="code-tab active" data-tab="cli">CLI</button>
+        <button class="code-tab" data-tab="js">JavaScript</button>
+        <button class="code-tab" data-tab="py">Python</button>
+      </div>
+      <div class="code-body">
+        <div class="code-pane active" data-pane="cli"><span class="c1"># install the CLI</span>
+<span class="c4">npm install -g spiderdb</span>
+
+<span class="c1"># authenticate once</span>
+<span class="c4">spiderdb login</span>
+
+<span class="c1"># spin up a database for a new user</span>
+<span class="c4">spiderdb databases create</span> <span class="c2">user_9f21</span>
+
+<span class="c3">✓ created user_9f21</span>
+<span class="c1">  libsql://user-9f21.spiderdb.io</span></div>
+        <div class="code-pane" data-pane="js"><span class="c1">import</span> <span class="c4">{ SpiderDB }</span> <span class="c1">from</span> <span class="c2">"spiderdb"</span>;
+
+<span class="c1">const</span> <span class="c4">client</span> = <span class="c1">new</span> <span class="c4">SpiderDB</span>({ <span class="c4">token</span>: <span class="c2">process.env.SPIDERDB_TOKEN</span> });
+
+<span class="c1">const</span> <span class="c4">db</span> = <span class="c1">await</span> <span class="c4">client.databases.create</span>(<span class="c2">"user_9f21"</span>);
+<span class="c1">console.log</span>(<span class="c4">db.connectionUrl</span>);
+<span class="c1">// libsql://user-9f21.spiderdb.io</span></div>
+        <div class="code-pane" data-pane="py"><span class="c1">from</span> <span class="c4">spiderdb</span> <span class="c1">import</span> <span class="c4">SpiderDB</span>
+
+<span class="c4">client</span> = <span class="c4">SpiderDB</span>(<span class="c4">token</span>=<span class="c2">os.environ</span>[<span class="c2">"SPIDERDB_TOKEN"</span>])
+
+<span class="c4">db</span> = <span class="c4">client.databases.create</span>(<span class="c2">"user_9f21"</span>)
+<span class="c1">print</span>(<span class="c4">db.connection_url</span>)
+<span class="c1"># libsql://user-9f21.spiderdb.io</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <h2>Your first database is free.</h2>
+      <p>No credit card required. Create your first isolated database in under a minute.</p>
+      <a href="#" class="btn btn-silk">Get Started →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="/index.html" class="logo" style="margin-bottom:14px;display:flex">
+          <svg class="mark" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#E7B24D" stroke-width="1" opacity=".55"><path d="M13 13 L13 2"/><path d="M13 13 L22 7"/><path d="M13 13 L24 16"/><path d="M13 13 L18 24"/><path d="M13 13 L6 23"/><path d="M13 13 L2 15"/><path d="M13 13 L4 5"/></g><circle cx="13" cy="13" r="2.6" fill="#E7B24D"/></svg>
+          SpiderDB
+        </a>
+        <p style="font-size:13.5px;max-width:220px">A database for every user, spun in milliseconds.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/index.html#features">Features🎆 </a></li>
+          <li><a href="/pricing.html">Pricing🎉 </a></li>
+          <li><a href="/docs/index.html">Documentation📄 </a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/docs/index.html">Getting Started</a></li>
+          <li><a href="/docs/api-reference.html">API Reference</a></li>
+          <li><a href="/docs/cli.html">CLI Reference</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SpiderDB. All rights reserved.</span>
+      <span>Built on isolated, SQLite-compatible databases.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
